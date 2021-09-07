@@ -1,0 +1,10 @@
+jlinkexe
+connect
+atsamd21g18
+s
+4000
+loadfile SAMD_clear_bootloader_protection.mot
+r
+loadbin bootloader-feather_m0-v3.13.0.bin,0
+loadfile SAMD_set_bootloader_protection_8k.mot
+q
