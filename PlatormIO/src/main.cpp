@@ -74,7 +74,7 @@ void setup()
 
   motor.linkDriver(&driver);
   motor.foc_modulation = FOCModulationType::SpaceVectorPWM;
-  motor.controller = MotionControlType::torque;
+  motor.controller = MotionControlType::angle;
 
   motor.PID_velocity.P = 0.2;
   motor.PID_velocity.I = 20;
@@ -99,8 +99,9 @@ void setup()
   }
 
   motor.init();
-  motor.initFOC(); // Change this for the motor you use
-  motor.disable();
+  // motor.initFOC(0.09, CW); // Change this for the motor you use
+  motor.initFOC();
+  // motor.disable();
 
   command.add('M', onMotor);
   command.add('D', onDRV);
@@ -119,9 +120,11 @@ void setup()
 void loop()
 {
   motor.loopFOC();
+
   motor.move(motor.target);
   // motor.monitor();
   command.run();
+  // Serial.println(sensor.getCurrentAngle());
 }
 
 void printSensorStatus()
